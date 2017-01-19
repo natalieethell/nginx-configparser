@@ -49,7 +49,6 @@ TEST_F(NginxStringConfigTest, EmptyString) {
 	EXPECT_FALSE(success);
 }
 
-// Returns true still!!
 
 TEST_F(NginxStringConfigTest, MissingOpenBrace) {
 	bool success = ParseString("server  port 1010; }");
@@ -59,6 +58,18 @@ TEST_F(NginxStringConfigTest, MissingOpenBrace) {
 
 TEST_F(NginxStringConfigTest, MissingClosingBrace) {
 	bool success = ParseString("server { port 1010; ");
+
+	EXPECT_FALSE(success);
+}
+
+TEST_F(NginxStringConfigTest, UnbalancedBraces) {
+	bool success = ParseString("server { port 1010; port { 1010;  }");
+
+	EXPECT_FALSE(success);
+}
+
+TEST_F(NginxStringConfigTest, BracesBackToBack) {
+	bool success = ParseString("server {{ port 1010; }}");
 
 	EXPECT_FALSE(success);
 }
