@@ -49,7 +49,6 @@ TEST_F(NginxStringConfigTest, EmptyString) {
 	EXPECT_FALSE(success);
 }
 
-
 TEST_F(NginxStringConfigTest, MissingOpenBrace) {
 	bool success = ParseString("server  port 1010; }");
 
